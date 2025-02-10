@@ -9,9 +9,9 @@ const uint16_t WRAP_PERIOD = 35175; // Valor máximo do contador (PWM 50 Hz)
 const float PWM_DIVISER = 71.071184899; // Divisor do clock do PWM
 
 // Definição dos valores de duty cycle para cada nível
-const uint16_t DUTY_0 = 879;    // 500µs → 0°
-const uint16_t DUTY_90 = 2582;  // 1470µs → 90°
-const uint16_t DUTY_180 = 4218; // 2400µs → 180°
+const uint16_t DUTY_0 = 879;    // 500µs → 0° - Feito manualmente
+const uint16_t DUTY_90 = 2582;  // 1470µs → 90° - Feito manualmente
+const uint16_t DUTY_180 = 4218; // 2400µs → 180° - Feito manualmente
 
 const uint16_t STEP = (5 * WRAP_PERIOD / 20000); // Incremento de 5µs convertido para PWM
 
