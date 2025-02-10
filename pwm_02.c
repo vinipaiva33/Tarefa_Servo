@@ -75,9 +75,17 @@ void escolher_periferico() {
     }
 }
 
+void pinosInit() //Incializa os pinos
+{
+    // Inicializa o pino do LED RGB e configura pro GPIO11 E GPIO12
+    gpio_init(PWM_LED);
+    gpio_set_dir(PWM_LED, GPIO_OUT);
+}
+
 // Função principal
 int main() {
     stdio_init_all();
+    pinosInit();
 
     while (true) {
         escolher_periferico(); // Pergunta ao usuário onde deseja ver o ciclo
