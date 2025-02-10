@@ -2,7 +2,7 @@
 #include "pico/stdlib.h"
 #include "hardware/pwm.h"
 
-#define PWM_LED 11   // Pino para o LED
+#define PWM_LED 11  // Pino para o LED
 #define PWM_SERVO 22 // Pino para o Servomotor
 
 const uint16_t WRAP_PERIOD = 35175; // Valor máximo do contador (PWM 50 Hz)
@@ -44,14 +44,13 @@ void move_servo(uint16_t start, uint16_t end) {
 
 // Função para solicitar escolha do usuário
 void escolher_periferico() {
-    int escolha;
+    char escolha;
     
     while (1) {
         printf("Onde deseja ver o ciclo?\n 1- LED\n 2- Servomotor\n");
-        scanf("%d", &escolha);
-        
+        scanf("%c", &escolha);
 
-        if (escolha == 1) {
+        if (escolha == '1') {
             pwm_pin = PWM_LED;
             desc_0 = "Menor Intensidade";
             desc_90 = "Média Intensidade";
@@ -60,7 +59,7 @@ void escolher_periferico() {
             printf("Ciclo será exibido no LED (GPIO %d)\n", PWM_LED);
             break;
         } 
-        else if (escolha == 2) {
+        else if (escolha == '2') {
             pwm_pin = PWM_SERVO;
             desc_0 = "Posicao 0 graus";
             desc_90 = "Posicao 90 graus";
@@ -75,41 +74,34 @@ void escolher_periferico() {
     }
 }
 
-void pinosInit() //Incializa os pinos
-{
-    // Inicializa o pino do LED RGB e configura pro GPIO11 E GPIO12
-    gpio_init(PWM_LED);
-    gpio_set_dir(PWM_LED, GPIO_OUT);
-}
-
 // Função principal
 int main() {
     stdio_init_all();
-    pinosInit();
 
     while (true) {
         escolher_periferico(); // Pergunta ao usuário onde deseja ver o ciclo
         pwm_setup(pwm_pin); // Configura PWM no pino escolhido
 
-        for (int i = 0; i < 2; i++) { // Repetir o ciclo apenas 2 vezes
-            // 1️⃣ Começa em 0° e espera 5 segundos
-            pwm_set_gpio_level(pwm_pin, DUTY_0);
-            printf("%s\n", desc_0);
-            sleep_ms(5000);
+        //  Posições iniciais com 5 segundos de pausa cada
+        pwm_set_gpio_level(pwm_pin, DUTY_0);
+        printf("%s\n", desc_0);
+        sleep_ms(5000);
 
-            // 2️⃣ Move suavemente para 90° e espera 5 segundos
-            move_servo(DUTY_0, DUTY_90);
-            printf("%s\n", desc_90);
-            sleep_ms(5000);
+        move_servo(DUTY_0, DUTY_90);
+        printf("%s\n", desc_90);
+        sleep_ms(5000);
 
-            // 3️⃣ Move suavemente para 180° e espera 5 segundos
-            move_servo(DUTY_90, DUTY_180);
-            printf("%s\n", desc_180);
-            sleep_ms(5000);
+        move_servo(DUTY_90, DUTY_180);
+        printf("%s\n", desc_180);
+        sleep_ms(5000);
 
-            // 4️⃣ Move suavemente de 180° para 0°
-            printf("%s\n", desc_reset);
+        //  Movimentação contínua entre 0° e 180° por 30 segundos
+        printf("Alternando entre 0° e 180° por 30 segundos...\n");
+        uint32_t start_time = to_ms_since_boot(get_absolute_time());
+
+        while (to_ms_since_boot(get_absolute_time()) - start_time < 30000) {
             move_servo(DUTY_180, DUTY_0);
+            move_servo(DUTY_0, DUTY_180);
         }
     }
 }
