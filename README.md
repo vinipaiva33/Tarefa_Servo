@@ -4,7 +4,7 @@
 
 Este projeto tem como objetivo implementar e simular o controle de um **servomotor** e de um **LED** utilizando **Modulação por Largura de Pulso (PWM)** no microcontrolador **RP2040** da placa **Raspberry Pi Pico W**. A simulação ocorre na plataforma **Wokwi** e o projeto foi desenvolvido utilizando o **Pico SDK** no **VS Code**.
 
-O programa permite ao usuário selecionar se deseja visualizar o ciclo de PWM no **LED (GPIO 11)** ou no **Servomotor (GPIO 22)**. Além disso, exibe mensagens correspondentes às posições do servomotor ou à intensidade do LED, executa um ciclo fixo de movimentação e, posteriormente, alterna continuamente entre 0° e 180° por 30 segundos antes de retornar à seleção do periférico.
+O programa permite ao usuário selecionar se deseja visualizar o ciclo de PWM no **LED (GPIO 12)** ou no **Servomotor (GPIO 22)**. Além disso, exibe mensagens correspondentes às posições do servomotor ou à intensidade do LED, executa um ciclo fixo de movimentação e, posteriormente, alterna continuamente entre 0° e 180° por 30 segundos antes de retornar à seleção do periférico.
 
 ## Objetivos
 
@@ -18,7 +18,7 @@ O programa permite ao usuário selecionar se deseja visualizar o ciclo de PWM no
 ## Componentes Utilizados
 
 - **Microcontrolador**: RP2040 (Raspberry Pi Pico W)
-- **LED**: Conectado ao GPIO **13**
+- **LED**: Conectado ao GPIO **12**
 - **Servomotor**: Conectado ao GPIO **22**
 
 ## Funcionalidades Implementadas
