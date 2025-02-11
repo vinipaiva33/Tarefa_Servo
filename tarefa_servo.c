@@ -2,8 +2,9 @@
 #include "pico/stdlib.h"
 #include "hardware/pwm.h"
 
-#define PWM_LED 11  // Pino para o LED
 #define PWM_SERVO 22 // Pino para o Servomotor
+#define PWM_LED 12 // Pino para o LED
+
 
 const uint16_t WRAP_PERIOD = 35175; // Valor máximo do contador (PWM 50 Hz)
 const float PWM_DIVISER = 71.071184899; // Divisor do clock do PWM
